@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block content%}
+    <h1>Профиль пользователя</h1>
+    <p>Добро пожаловать, {{ user.username }}!</p>
+    <a href="{% url 'logout' %}">Выйти</a>
+    <a href="{% url 'blog_create' %}" class="profile__button">Создать пост</a>
+    <a href="{% url 'my_posts' %}" class="profile__button">Посмотреть посты</a>
+{% endblock content%}

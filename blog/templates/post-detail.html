@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content%}
+    <h1>{{ post.title }}</h1>
+    <p>{{ post.text }}</p>
+    <img src="{{ post.image.url }}" alt="Post Image" width='100' height="100">
+    <form method="POST" action="{% url 'like_post' post.pk %}">
+        {% csrf_token %}
+        <button type="submit">Like</button>
+    </form>
+    <p>Likes: {{ post.likes.count }}</p>
+    <h2>Comments</h2>
+    <ul>
+        {% for comment in post.comments.all %}
+            <li>
+                <strong>{{ comment.author}}</strong> said:
+                <p>{{ comment.text }}</p>
+            </li>
+        {% empty %}
+            <li>No comments yet.</li>
+        {% endfor %}
+    </ul>
+    <form method="POST" action="{% url 'add_comment' post.pk %}">
+        {% csrf_token %}
+        <textarea name="content" placeholder="Add a comment"></textarea>
+        <br>
+        <button type="submit">Post Comment</button>
+    </form>
+{% endblock content%}
